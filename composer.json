@@ -1,0 +1,18 @@
+{
+    "name": "mic2100/cache",
+    "description": "PSR-6 compatible caching library",
+    "type": "library",
+    "require": {
+        "psr/cache": "^1.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^6.4"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Michael Bardsley",
+            "email": "mic.bardsley@outlook.com"
+        }
+    ]
+}

@@ -6,7 +6,9 @@
         "psr/cache": "^1.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "^6.4"
+        "phpunit/phpunit": "^6.4",
+        "larapack/dd": "1.*",
+        "symfony/var-dumper": "^3.2"
     },
     "license": "MIT",
     "authors": [
@@ -14,5 +16,11 @@
             "name": "Michael Bardsley",
             "email": "mic.bardsley@outlook.com"
         }
-    ]
+    ],
+    "autoload": {
+        "psr-4": {
+            "Mic2100\\Cache\\": "src",
+            "Mic2100\\CacheTest\\": "tests"
+        }
+    }
 }

@@ -4,7 +4,7 @@ namespace Mic2100\Cache\Suppliers;
 
 use Mic2100\Cache\Exceptions\NotFoundKeyException;
 
-class TestDummy implements SupplierInterface
+class ArraySupplier implements SupplierInterface
 {
     /**
      * @var array
@@ -14,25 +14,23 @@ class TestDummy implements SupplierInterface
     /**
      * @param string $key
      * @return mixed
-     * 
+     *
      * @throws NotFoundKeyException - If the key does not exist in the cache
      */
     public function get(string $key)
     {
-        if (!isset($this->cache[$key])) {
-            throw new NotFoundKeyException('Unable to find key: ' . $key);
-        }
+        $this->keyExists($key);
 
         return $this->cache[$key]['value'] ?? null;
     }
 
     /**
      * @param string $key
-     * @param $value
+     * @param mixed $value
      * @param int $ttl
      * @return bool
      */
-    public function set(string $key, $value, int $ttl): bool
+    public function set(string $key, $value, int $ttl = 0): bool
     {
         $this->cache[$key] = ['value' => $value];
 
@@ -69,5 +67,16 @@ class TestDummy implements SupplierInterface
     public function isHit(string $key): bool
     {
         return isset($this->cache[$key]);
+    }
+
+    /**
+     * @param string $key
+     * @throws NotFoundKeyException
+     */
+    private function keyExists(string $key)
+    {
+        if (!isset($this->cache[$key])) {
+            throw new NotFoundKeyException('Unable to find key: ' . $key);
+        }
     }
 }

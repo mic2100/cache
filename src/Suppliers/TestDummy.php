@@ -45,7 +45,7 @@ class TestDummy implements CacheAdapterInterface
      */
     public function deleteAll()
     {
-        // TODO: Implement deleteAll() method.
+        $this->cache = [];
     }
 
     /**

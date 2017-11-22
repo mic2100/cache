@@ -37,6 +37,8 @@ if ($store->has('key')) {
     //the key exists in the store
 }
 ```
+
+```
                     _________________________
                    ||                       ||
                    ||      Store Front      ||

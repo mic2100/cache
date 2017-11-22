@@ -1,27 +1,41 @@
 # Caching Library
 
+[![Build Status](https://travis-ci.org/mic2100/cache.png?branch=master)](https://travis-ci.org/mic2100/cache)
+
 PSR-16 compatible caching library
 
-Welcome to the store, to enable the store to supply data we need to configure it with supplier. See the insturctions below:
+Instructions
 
 ```php
 
-//Create the supplier, the supplier must implement the `Mic2100\Cache\Suppliers\SupplierInterface` interface.
-$suppier = new Mic2100\Cache\Suppliers\TestDummy;
+//Instantiate the Configuration class
+$config = new \Mic2100\Cache\Configuration;
 
-//Add the supplier to the store
-$store = new Mic2100\Cache\Store($suppier);
+//Instantiate the SupplierInterface class (ArraySupplier or others)
+$supplier = new \Mic2100\Cache\Suppliers\ArraySupplier;
 
-//Adding data to the supplier
+//Add the supplier to the Configuration class
+$config->setSupplier($supplier);
+
+//Instantiate the Store and pass it the config
+$store = new Store($config);
+
+//Adding data to the store
 $store->set('key1', 'Some test data');
 
-//Getting data from the supplier
+//Getting data from the store
 $store->get('key1'); //returns: Some test data
 
-//Removing the data from the supplier
+//Removing the data from the store
 $store->delete('key1');
-```
 
+//Removing all the data from the store
+$store->clear();
+
+//Check if the store has the data
+if ($store->has('key')) {
+    //the key exists in the store
+}
 ```
                     _________________________
                    ||                       ||

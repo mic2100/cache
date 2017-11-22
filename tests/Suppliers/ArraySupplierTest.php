@@ -93,7 +93,6 @@ class ArraySupplierTest extends TestCase
         foreach ($this->items as $key => $value) {
             $this->assertFalse($this->supplier->isHit($key));
         }
-
     }
 
     /**

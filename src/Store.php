@@ -102,7 +102,6 @@ class Store implements CacheInterface
         }
 
         foreach ($values as $key => $value) {
-            
             if (!$this->set($key, $value, $ttl)) {
                 return false;
             }

@@ -42,12 +42,16 @@ class Store implements CacheInterface
     /**
      * @param string $key
      * @param mixed $value
-     * @param int|null|\DateInterval $ttl
+     * @param int|\DateInterval $ttl
      * @return bool
      */
-    public function set($key, $value, $ttl = null) : bool
+    public function set($key, $value, $ttl = 300) : bool
     {
         $this->validateKey($key);
+
+        if ($ttl instanceof \DateInterval) {
+            $ttl = (new \DateTime)->add($ttl)->getTimestamp() - time();
+        }
 
         return $this->config->getSupplier()->set($key, $value, $ttl);
     }
@@ -95,7 +99,7 @@ class Store implements CacheInterface
      * @param int|null|\DateInterval $ttl
      * @return bool
      */
-    public function setMultiple($values, $ttl = null) : bool
+    public function setMultiple($values, $ttl = 300) : bool
     {
         foreach ($values as $key => $value) {
             $this->validateKey($key);

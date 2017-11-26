@@ -32,7 +32,7 @@ class ArraySupplier implements SupplierInterface
      */
     public function set(string $key, $value, int $ttl = 0): bool
     {
-        $this->cache[$key] = ['value' => $value];
+        $this->cache[$key] = ['value' => $value, 'expires' => time() + $ttl];
 
         return true;
     }
@@ -66,7 +66,7 @@ class ArraySupplier implements SupplierInterface
      */
     public function isHit(string $key): bool
     {
-        return isset($this->cache[$key]);
+        return isset($this->cache[$key]) && $this->cache[$key]['expires'] > time();
     }
 
     /**
@@ -75,7 +75,7 @@ class ArraySupplier implements SupplierInterface
      */
     private function keyExists(string $key)
     {
-        if (!isset($this->cache[$key])) {
+        if (!isset($this->cache[$key]) || $this->cache[$key]['expires'] <= time()) {
             throw new NotFoundKeyException('Unable to find key: ' . $key);
         }
     }

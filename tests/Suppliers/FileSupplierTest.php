@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class FileSupplierTest extends TestCase
 {
-    const FILENAME = __DIR__ . '/cache.data';
+    const FILENAME = __DIR__ . '/Data/cache.data';
 
     /**
      * @var SupplierInterface

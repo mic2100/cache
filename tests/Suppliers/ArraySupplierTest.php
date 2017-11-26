@@ -93,7 +93,7 @@ class ArraySupplierTest extends TestCase
         $this->supplier->deleteAll();
 
         foreach ($this->items as $index => $value) {
-            list($key, $data) = $value;
+            list($key) = $value;
             $this->assertFalse($this->supplier->isHit($key));
         }
     }

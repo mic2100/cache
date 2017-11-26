@@ -88,7 +88,7 @@ class StoreTest extends TestCase
         $this->assertTrue($this->store->clear());
 
         foreach ($this->items as $index => $value) {
-            list($key, $data) = $value;
+            list($key) = $value;
             $this->assertFalse($this->store->has($key));
         }
     }
@@ -123,7 +123,7 @@ class StoreTest extends TestCase
         $values = $this->store->getMultiple($keys, $defaultValue);
 
         foreach ($this->items as $index => $value) {
-            list($key, $data) = $value;
+            list($key) = $value;
             $this->assertSame($defaultValue, $values[$key . '1234']);
         }
     }
@@ -151,7 +151,7 @@ class StoreTest extends TestCase
         $this->assertTrue($this->store->deleteMultiple($keys));
 
         foreach ($this->items as $index => $value) {
-            list($key, $data) = $value;
+            list($key) = $value;
             $this->assertFalse($this->store->has($key));
         }
     }
@@ -170,9 +170,8 @@ class StoreTest extends TestCase
     /**
      * @dataProvider dataItems
      * @param string $key
-     * @param mixed $value
      */
-    public function testHasReturnsFalse(string $key, $value)
+    public function testHasReturnsFalse(string $key)
     {
         $this->assertFalse($this->store->has($key));
     }

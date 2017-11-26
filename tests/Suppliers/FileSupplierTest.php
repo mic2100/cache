@@ -2,12 +2,14 @@
 
 namespace Mic2100Tests\Suppliers;
 
-use Mic2100\Cache\Suppliers\ArraySupplier;
+use Mic2100\Cache\Suppliers\FileSupplier;
 use Mic2100\Cache\Suppliers\SupplierInterface;
 use PHPUnit\Framework\TestCase;
 
-class ArraySupplierTest extends TestCase
+class FileSupplierTest extends TestCase
 {
+    const FILENAME = __DIR__ . '/cache.data';
+
     /**
      * @var SupplierInterface
      */
@@ -32,7 +34,12 @@ class ArraySupplierTest extends TestCase
     
     public function setUp()
     {
-        $this->supplier = new ArraySupplier;
+        $this->supplier = new FileSupplier(self::FILENAME, true);
+    }
+
+    public function tearDown()
+    {
+        file_put_contents(self::FILENAME, '');
     }
 
     /**

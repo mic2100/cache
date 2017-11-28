@@ -177,66 +177,13 @@ class StoreTest extends TestCase
     }
 
     /**
+     * @dataProvider dataInvalidKeyMethods
      * @expectedException \Mic2100\Cache\Exceptions\InvalidArgumentException
      * @expectedExceptionMessage The key does not match the required format `/^[A-Za-z0-9\_\.]{1,64}$/`: <invalid name>
      */
-    public function testGetWithInvalidKeyExpectsException()
+    public function testMethodHasInvalidKeyExpectsException($method, $key, $value, $ttl)
     {
-        $this->store->get('<invalid name>');
-    }
-
-    /**
-     * @expectedException \Mic2100\Cache\Exceptions\InvalidArgumentException
-     * @expectedExceptionMessage The key does not match the required format `/^[A-Za-z0-9\_\.]{1,64}$/`: <invalid name>
-     */
-    public function testSetWithInvalidKeyExpectsException()
-    {
-        $this->store->set('<invalid name>', '', 300);
-    }
-
-    /**
-     * @expectedException \Mic2100\Cache\Exceptions\InvalidArgumentException
-     * @expectedExceptionMessage The key does not match the required format `/^[A-Za-z0-9\_\.]{1,64}$/`: <invalid name>
-     */
-    public function testDeleteWithInvalidKeyExpectsException()
-    {
-        $this->store->delete('<invalid name>');
-    }
-
-    /**
-     * @expectedException \Mic2100\Cache\Exceptions\InvalidArgumentException
-     * @expectedExceptionMessage The key does not match the required format `/^[A-Za-z0-9\_\.]{1,64}$/`: <invalid name>
-     */
-    public function testGetMultipleWithInvalidKeyExpectsException()
-    {
-        $this->store->getMultiple(['<invalid name>']);
-    }
-
-    /**
-     * @expectedException \Mic2100\Cache\Exceptions\InvalidArgumentException
-     * @expectedExceptionMessage The key does not match the required format `/^[A-Za-z0-9\_\.]{1,64}$/`: <invalid name>
-     */
-    public function testSetMultipleWithInvalidKeyExpectsException()
-    {
-        $this->store->setMultiple(['<invalid name>' => 1]);
-    }
-
-    /**
-     * @expectedException \Mic2100\Cache\Exceptions\InvalidArgumentException
-     * @expectedExceptionMessage The key does not match the required format `/^[A-Za-z0-9\_\.]{1,64}$/`: <invalid name>
-     */
-    public function testDeleteMultipleWithInvalidKeyExpectsException()
-    {
-        $this->store->deleteMultiple(['<invalid name>']);
-    }
-
-    /**
-     * @expectedException \Mic2100\Cache\Exceptions\InvalidArgumentException
-     * @expectedExceptionMessage The key does not match the required format `/^[A-Za-z0-9\_\.]{1,64}$/`: <invalid name>
-     */
-    public function testHasWithInvalidKeyExpectsException()
-    {
-        $this->store->has('<invalid name>');
+        $this->store->$method($key, $value, $ttl);
     }
 
     /**
@@ -245,5 +192,21 @@ class StoreTest extends TestCase
     public function dataItems() : array
     {
         return $this->items;
+    }
+
+    /**
+     * @return array
+     */
+    public function dataInvalidKeyMethods() : array
+    {
+        return [
+            ['get', '<invalid name>', '', 300],
+            ['set', '<invalid name>', '', 300],
+            ['delete', '<invalid name>', '', 300],
+            ['getMultiple', ['<invalid name>'], '', 300],
+            ['setMultiple', ['<invalid name>' => 1], 300, ''],
+            ['deleteMultiple', ['<invalid name>'], '', 300],
+            ['has', '<invalid name>', '', 300],
+        ];
     }
 }
